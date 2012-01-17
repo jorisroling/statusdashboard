@@ -23,11 +23,9 @@ exports.create = function() {
 	if (process.env && process.env.REDISTOGO_URL) {
 		var rtg= require("url").parse(process.env.REDISTOGO_URL);
 		
-		redis_options.redis={
-			port:rtg.port,
-			host:rtg.hostname,
-			password:rtg.auth.split(":")[1]
-		}
+		redis_options.port=rtg.port;
+		redis_options.host=rtg.hostname;
+		redis_options.password=rtg.auth.split(":")[1];
 	}
 	
 	
