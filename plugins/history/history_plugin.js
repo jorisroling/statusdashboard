@@ -11,7 +11,7 @@ exports.create = function(api, settings) {
 
 //JJR
 if (settings.plugins.history.password) {
-  redisClient.auth(settings.plugins.history.password,function(err) {
+  client.auth(settings.plugins.history.password,function(err) {
     if (err) throw err;
   });
 }
