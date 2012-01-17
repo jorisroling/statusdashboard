@@ -18,6 +18,18 @@ exports.create = function() {
     serviceDelay: 500
   };
 
+  var defaults = {
+    title: 'Services Status Dashboard',
+    hostname: '127.0.0.1',
+    port: (process.env && process.env.PORT) || 8080,
+    client: {
+      transports: []
+    },
+    services: [],
+    serviceInterval: 20000,
+    serviceDelay: 500
+  };
+
   settings['olivier'] = {
     port: 8080,
     services: [{
