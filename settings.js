@@ -18,17 +18,31 @@ exports.create = function() {
     serviceDelay: 500
   };
 
-  var defaults = {
-    title: 'Services Status Dashboard',
-    hostname: '127.0.0.1',
-    port: (process.env && process.env.PORT) || 8080,
+  settings['heroku'] = {
+    port: process.env.PORT,
     client: {
-      transports: []
+      transports: ['xhr-polling']
     },
-    services: [],
-    serviceInterval: 20000,
-    serviceDelay: 500
+    services: [{
+      name: 'blog.bazoud.com - index',
+      label: 'Olivier Bazoud blog index',
+      check: 'http',
+      host: 'blog.bazoud.com', 
+      port: '80',
+      path: '/',
+      headers: {
+        'Host': 'blog.bazoud.com'
+      }
+    }, {
+      name: 'blog.bazoud.com - healthCheck',
+      label: 'Olivier Bazoud blog healthCheck',
+      check: 'http',
+      host: 'blog.bazoud.com', 
+      port: '80',
+      path: '/healthCheck'
+    }]
   };
+
 
   settings['olivier'] = {
     port: 8080,
