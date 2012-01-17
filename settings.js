@@ -43,7 +43,6 @@ exports.create = function() {
     }]
   };
 
-
   settings['olivier'] = {
     port: 8080,
     services: [{
