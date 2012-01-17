@@ -19,6 +19,7 @@ exports.create = function() {
   };
 
   settings['heroku'] = {
+    hostname: '0.0.0.0',
     port: process.env.PORT,
     client: {
       transports: ['xhr-polling']
