@@ -18,6 +18,20 @@ exports.create = function() {
     serviceDelay: 500
   };
 
+	var redis_options={};
+	
+	if (process.env && process.env.REDISTOGO_URL) {
+		var rtg= require("url").parse(process.env.REDISTOGO_URL);
+		
+		redis_options.redis={
+			port:rtg.port,
+			host:rtg.hostname,
+			password:rtg.auth.split(":")[1]
+		}
+	}
+	
+	
+	
   settings['heroku'] = {
     hostname: '0.0.0.0',
     port: process.env.PORT,
@@ -41,7 +55,20 @@ exports.create = function() {
       host: 'blog.bazoud.com', 
       port: '80',
       path: '/healthCheck'
-    }]
+    }],
+	plugins : {
+	  console : {
+	    enable: false
+	  },
+	  history: {
+	    enable: true,
+	    host: "0.0.0.1",
+	    port: 6379,
+	    namespace: "statusdashboard",
+	    options: redis_options,
+	    client: true
+	  }
+	}
   };
 
   settings['olivier'] = {
