@@ -22,10 +22,6 @@ exports.create = function() {
 	
 	if (process.env && process.env.REDISTOGO_URL) {
 		var rtg= require("url").parse(process.env.REDISTOGO_URL);
-		
-		redis_options.port=rtg.port;
-		redis_options.host=rtg.hostname;
-		redis_options.password=rtg.auth.split(":")[1];
 	}
 	
 	
@@ -60,10 +56,11 @@ exports.create = function() {
 	  },
 	  history: {
 	    enable: true,
-	    host: "0.0.0.1",
-	    port: 6379,
+	    host: (rtg && rtg.hostname) || "127.0.0.1",
+	    port: (rtg && rtg.port) || 6379,
+	    password: (rtg && rtg.auth && rtg.auth.split(":")[1]) || null,
 	    namespace: "statusdashboard",
-	    options: redis_options,
+	    options: {},
 	    client: true
 	  }
 	}

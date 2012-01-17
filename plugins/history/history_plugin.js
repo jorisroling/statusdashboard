@@ -9,6 +9,13 @@ exports.create = function(api, settings) {
     console.log('Creating the plugin: ' + __filename);
     client = redis.createClient(settings.plugins.history.port, settings.plugins.history.host, settings.plugins.history.options);
 
+//JJR
+if (settings.plugins.history.password) {
+  redisClient.auth(settings.plugins.history.password,function(err) {
+    if (err) throw err;
+  });
+}
+
     client.on('error', function(err) {
       logger.log("Redis plugin: " + err);
     });
